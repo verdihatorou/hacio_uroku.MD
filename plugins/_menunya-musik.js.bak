@@ -1,9 +1,9 @@
-// Kl gamau ada musiknya pergi me _menunya-musik.js  
-// lalu hapus .bak di sana  dan hapus file ini agar tidak error.
+// Kl gamau ada musiknya hapus aja .bak nya lalu hapus file _menunya.js
 
 const { BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, proto, generateWAMessageContent, generateWAMessage, prepareWAMessageMedia, areJidsSameUser, getContentType } = require('@adiwajshing/baileys')
 process.env.TZ = 'Asia/Jakarta'
 let fs = require('fs')
+let vn = './mp3/menu.opus'
 let path = require('path')
 let fetch = require('node-fetch')
 let moment = require('moment-timezone')
@@ -58,6 +58,7 @@ const defaultMenu = {
 ├ Tanggal: %date
 ├ Version : %version
 ├ Prefix Used : *[ %p ]*
+├ Version : %version
 ├ Database : %rtotalreg dari %totalreg 
 ├ Memory Used : ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(require('os').totalmem / 1024 / 1024)}MB
 ├ Free Apikey : bit.ly/freeapikey
@@ -194,6 +195,9 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
 ['Script', '.sc']
 ], m
 )
+await conn.sendFile(m.chat, vn, 'menu.opus', null, m, true, {
+type: 'audioMessage', 
+ptt: true})
     /*let url = `https://database.tioclkp02.repl.co/TextPro.me_162e2a76bb2460.jpg`.trim()
     conn.sendHydrated(m.chat, text.trim(), '⫹⫺ TioXd', null, 'https://chat.whatsapp.com/JEDQfzMGZan4HA98wtxsNL', 'Group', '', '', [
       ['Sewa Bot', '/sewa'],
@@ -255,7 +259,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
 }
 handler.help = ['menu']
 handler.tags = ['main']
-handler.command = /^(a)$/i
+handler.command = /^(menu|help|\?)$/i
 
 handler.exp = 3
 
